@@ -19,16 +19,59 @@ public class EAN8BarcodeGenerator implements BarcodeGenerator {
         bits.append(START_STOP_PATTERN);
         for (int i = 0; i < 4; i++) {
             int digit = Character.digit(msg.charAt(i), RADIX);
-            bits.append(A_PATTERNS[digit], false);
+            bits.append(A_PATTERNS[digit], true);
         }
         bits.append(MIDDLE_PATTERN);
         for (int i = 4; i < 8; i++) {
             int digit = Character.digit(msg.charAt(i), RADIX);
-            bits.append(A_PATTERNS[digit], true);
+            bits.append(A_PATTERNS[digit], false);
         }
         bits.append(START_STOP_PATTERN);
 
         return bits;
+    }
+
+    @Override
+    public String decode(BitSequence bitSequence) {
+        validateBitSequence(bitSequence);
+        StringBuilder sb = new StringBuilder();
+        int charPatternLength = A_PATTERNS[0].length;
+
+        for (int i = 0; i < 4; i++) {
+            int offset = START_STOP_PATTERN.length + i * charPatternLength;
+            sb.append(decodeChar(bitSequence, offset, true));
+        }
+
+        for (int i = 0; i < 4; i++) {
+            int offset = START_STOP_PATTERN.length + MIDDLE_PATTERN.length + (4 + i) * charPatternLength;
+            sb.append(decodeChar(bitSequence, offset, false));
+        }
+        return sb.toString();
+    }
+
+    private void validateBitSequence(BitSequence bitSequence) {
+        if (bitSequence.getLength() != EAN8_BARCODE_LENGTH) {
+            throw new IllegalArgumentException("Invalid Bit Sequence");
+        }
+        if (!bitSequence.isEqualSubArray(START_STOP_PATTERN, 0, true)) {
+            throw new IllegalArgumentException("Invalid START pattern");
+        }
+        if (!bitSequence.isEqualSubArray(START_STOP_PATTERN, bitSequence.getLength() - START_STOP_PATTERN.length, true)) {
+            throw new IllegalArgumentException("Invalid STOP pattern");
+        }
+        int charPatternLength = A_PATTERNS[0].length;
+        if (!bitSequence.isEqualSubArray(MIDDLE_PATTERN, START_STOP_PATTERN.length + charPatternLength * 4, true)) {
+            throw new IllegalArgumentException("Invalid MIDDLE pattern");
+        }
+    }
+
+    private char decodeChar(BitSequence bitSequence, int offset, boolean color) {
+        for (int i = 0; i < A_PATTERNS.length; i++) {
+            if (bitSequence.isEqualSubArray(A_PATTERNS[i], offset, color)) {
+                return Character.forDigit(i, 10);
+            }
+        }
+        throw new IllegalArgumentException("Invalid barcode");
     }
 
     private void validateMessage(String msg) {

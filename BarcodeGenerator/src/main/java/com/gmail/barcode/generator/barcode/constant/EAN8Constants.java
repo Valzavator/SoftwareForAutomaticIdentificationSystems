@@ -11,6 +11,18 @@ public final class EAN8Constants {
     public static final int[] START_STOP_PATTERN = new int[]{1, 0, 1};
     public static final int[] MIDDLE_PATTERN = new int[]{0, 1, 0, 1, 0};
     public static final int[][] A_PATTERNS = new int[][]{
+            {0, 0, 0, 1, 1, 0, 1},
+            {0, 0, 1, 1, 0, 0, 1},
+            {0, 0, 1, 0, 0, 1, 1},
+            {0, 1, 1, 1, 1, 0, 1},
+            {0, 1, 0, 0, 0, 1, 1},
+            {0, 1, 1, 0, 0, 0, 1},
+            {0, 1, 0, 1, 1, 1, 1},
+            {0, 1, 1, 1, 0, 1, 1},
+            {0, 1, 1, 0, 1, 1, 1},
+            {0, 0, 0, 1, 0, 1, 1}};
+
+    public static final int[][] A_PATTERNS_B = new int[][]{
             {3, 2, 1, 1},
             {2, 2, 2, 1},
             {2, 1, 2, 2},

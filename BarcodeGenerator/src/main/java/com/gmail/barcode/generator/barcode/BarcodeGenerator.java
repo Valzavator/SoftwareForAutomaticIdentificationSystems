@@ -6,4 +6,6 @@ public interface BarcodeGenerator {
 
     BitSequence encode(String msg);
 
+    String decode(BitSequence bitSequence);
+
 }

@@ -15,13 +15,14 @@ public class Runner {
 
     public static void main(String[] args) throws IOException {
         generateBarcodeImage("12345670", "12345670.png");
-        generateBarcodeImage("0123456", "0123456.png");
+//        generateBarcodeImage("0123456", "0123456.png");
         generateBarcodeImage("9031101", "9031101.png");
     }
 
     private static void generateBarcodeImage(String msg, String fileName) throws IOException {
         EAN8BarcodeGenerator ean8Barcode = new EAN8BarcodeGenerator();
         BitSequence bitSequence = ean8Barcode.encode(msg);
+        System.out.println(bitSequence);
         BarcodeImage image = new EAN8BarcodeImage();
         saveImage(image.generateImage(bitSequence), fileName);
     }
