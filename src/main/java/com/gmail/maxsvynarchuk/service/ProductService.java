@@ -1,6 +1,5 @@
 package com.gmail.maxsvynarchuk.service;
 
-import com.gmail.maxsvynarchuk.persistence.dao.entity.Country;
 import com.gmail.maxsvynarchuk.persistence.dao.entity.Product;
 import com.gmail.maxsvynarchuk.persistence.dao.repository.ProductRepository;
 import lombok.AllArgsConstructor;

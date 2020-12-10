@@ -96,7 +96,7 @@
                <form accept-charset="UTF-8" role="form" method="post" action="<c:url value="/decode"/>" enctype="multipart/form-data">
                   <div class="form-group">
                      <label for="exampleFormControlFile1"><h2>Decode barcode</h2></label>
-                     <input type="file" class="form-control-file" id="exampleFormControlFile1" name="barcode">
+                     <input type="file" class="form-control-file" id="exampleFormControlFile1" name="barcode" required>
                   </div>
                   <button class="btn btn-primary btn-lg btn-success" type="submit">Upload barcode</button>
                </form>

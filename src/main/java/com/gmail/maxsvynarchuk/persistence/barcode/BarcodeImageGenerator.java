@@ -1,12 +1,5 @@
 package com.gmail.maxsvynarchuk.persistence.barcode;
 
-
-import com.gmail.maxsvynarchuk.persistence.barcode.BitSequence;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
